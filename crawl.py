@@ -15,6 +15,4 @@ def crawl(url):
     for line in result.stdout.splitlines():
         count+=1
 
-    return [result.stdout, count]
-
-print(crawl("https://www.york.ac.uk/teaching/cws/wws/webpage1.html")[0])
+    return [result.stdout, count-1]
