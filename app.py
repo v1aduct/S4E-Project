@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import request, redirect, url_for,make_response
 import subprocess
 from crawl import crawl
+from cli import GetStdout
 
 
 
@@ -50,11 +51,21 @@ def add_webpage():
         {"message":"Data was not entered correctly"},
         500
     )
+    
+@flaskapp.route('/GetCommandOutput', methods=['POST'])
+def get_command():
+    data = request.json
+    command = data.get('command')
+    output = GetStdout(command)
+    return make_response(
+        {"CLI Output:":output.decode('utf-8')},
+        200
+    )
 
 if __name__ == "__main__":
     with flaskapp.app_context():
         database.create_all()
-    flaskapp.run(host="0.0.0.0", port=5000)
+    flaskapp.run(host="0.0.0.0", port=5000, debug=True)
 
     
 

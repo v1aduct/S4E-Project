@@ -7,7 +7,6 @@ services:
       - .:/app
     depends_on:
       - db
-    command: python app.py
     working_dir: /app
 
   db:
